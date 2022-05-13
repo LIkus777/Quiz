@@ -12,6 +12,6 @@ sealed class QuestionViewState {
     object IncorrectLight: QuestionViewState()
     data class Display(
         val question: String,
-        val answerList: List<Answers>
+        val answerList: List<Answers>,
     ): QuestionViewState()
 }

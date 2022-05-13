@@ -27,18 +27,21 @@ fun QuestionScreen(
             verticalArrangement = Arrangement.Center
         ) {
             when (val state = viewState.value) {
-                is QuestionViewState.CorrectLight -> CorrectLightView()
-                is QuestionViewState.IncorrectLight -> IncorrectLightView()
+                QuestionViewState.CorrectLight -> CorrectLightView()
+                QuestionViewState.IncorrectLight -> IncorrectLightView()
                 is QuestionViewState.Display -> DisplayView(
-                    viewState = state
+                    viewState = state,
+                    correctAnswerClicked = { questionViewModel.obtainEvent(QuestionEvent.CorrectAnswerClicked) },
+                    incorrectAnswerClicked = { questionViewModel.obtainEvent(QuestionEvent.IncorrectAnswerClicked) },
+                    nextQuestion = { questionViewModel.obtainEvent(event = QuestionEvent.NextQuestionClicked) }
                 )
             }
 
-            Button(onClick = {
+            /*Button(onClick = {
                 questionViewModel.obtainEvent(event = QuestionEvent.NextQuestionClicked)
             }) {
                 Text(text = "Next")
-            }
+            }*/
         }
     }
 

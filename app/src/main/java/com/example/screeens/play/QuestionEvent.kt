@@ -7,6 +7,6 @@ sealed class QuestionEvent {
     object GetAnswersList: QuestionEvent()
     object FirstInitial: QuestionEvent()
     object CorrectAnswerClicked: QuestionEvent()
-    object InCorrectAnswerClicked: QuestionEvent()
+    object IncorrectAnswerClicked: QuestionEvent()
     object NextQuestionClicked: QuestionEvent()
 }
