@@ -1,5 +1,6 @@
 package com.example.screeens.play
 
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +19,7 @@ class QuestionViewModel @Inject constructor (
 ): ViewModel(), EventHandler<QuestionEvent> {
     //todo накидай лив даты, обработчиики событий
     //todo добавить состояние в QuestionViewState (связанное с JSON)
+
     private val _questionViewState = MutableLiveData<QuestionViewState>(QuestionViewState.Loading)
     val questionViewState: LiveData<QuestionViewState> = _questionViewState
 
@@ -43,7 +45,41 @@ class QuestionViewModel @Inject constructor (
             is QuestionEvent.CorrectAnswerClicked -> correctAnswer()
             is QuestionEvent.IncorrectAnswerClicked -> incorrectAnswer()
             is QuestionEvent.NextQuestionClicked -> loadQuestion()
+            is QuestionEvent.TimeCountStart -> loadTime()
         }
+    }
+
+    private fun loadTime() {
+
+        viewModelScope.launch {
+            try {
+
+                var time = 0L
+
+                object : CountDownTimer(5000, 1000) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        Log.i("TAG", "onTick: $millisUntilFinished")
+                        time = millisUntilFinished/1000
+                    }
+
+                    override fun onFinish() {
+                        _questionViewState.postValue(
+                            QuestionViewState.Display(
+                                time = time
+                            )
+                        )
+                        cancel()
+                    }
+
+                }.start()
+
+
+
+            } catch (e: Exception) {
+
+            }
+        }
+
     }
 
     private fun correctAnswer() {
@@ -63,7 +99,7 @@ class QuestionViewModel @Inject constructor (
                 )
             )
 
-            correctAnswers++
+            fileRepository.correctAnswers++
 
         } catch (e: Exception) {
             Log.i("TAG", "correctAnswer: error $e")
@@ -86,7 +122,7 @@ class QuestionViewModel @Inject constructor (
                     answerList = answers,
                 )
             )
-            incorrectAnswers++
+            fileRepository.incorrectAnswers++
 
         } catch (e: Exception) {
             Log.i("TAG", "incorrectAnswer: error $e")
@@ -100,6 +136,9 @@ class QuestionViewModel @Inject constructor (
         viewModelScope.launch {
 
             try {
+
+                fileRepository.correctAnswers = 0
+                fileRepository.incorrectAnswers = 0
 
                 val listOfQuestionAndAnswers = fileRepository.execute()
 
@@ -115,12 +154,8 @@ class QuestionViewModel @Inject constructor (
             } catch (e: Exception) {
                 Log.i("TAG", "loadQuestion: error $e")
             }
-
         }
-
-
     }
-
 
     private fun loadQuestion() {
 
@@ -132,17 +167,38 @@ class QuestionViewModel @Inject constructor (
 
                 index++
 
-                val listOfQuestionAndAnswers = fileRepository.execute()
+                if (index <= 8) {
 
-                val question: String = listOfQuestionAndAnswers[index].question
-                val answers: List<Answers> = listOfQuestionAndAnswers[index].answers
 
-                _questionViewState.postValue(
-                    QuestionViewState.Display(
-                        question = question,
-                        answerList = answers
+                    val listOfQuestionAndAnswers = fileRepository.execute()
+
+                    val question: String = listOfQuestionAndAnswers[index].question
+                    val answers: List<Answers> = listOfQuestionAndAnswers[index].answers
+
+                    _questionViewState.postValue(
+                        QuestionViewState.Display(
+                            question = question,
+                            answerList = answers
+                        )
                     )
-                )
+
+                } else {
+
+                    val listOfQuestionAndAnswers = fileRepository.execute()
+
+                    val question: String = listOfQuestionAndAnswers[index].question
+                    val answers: List<Answers> = listOfQuestionAndAnswers[index].answers
+
+                    _questionViewState.postValue(
+                        QuestionViewState.Display(
+                            question = question,
+                            answerList = answers,
+                            isLastQuestion = true
+                        )
+                    )
+                    return@launch
+                }
+
 
             } catch (e: Exception) {
                 Log.i("TAG", "loadQuestion: error $e")

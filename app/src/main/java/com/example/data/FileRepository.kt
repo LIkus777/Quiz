@@ -3,6 +3,7 @@ package com.example.data
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import javax.inject.Inject
+import javax.inject.Singleton
 
 data class Question(
     val question: String,
@@ -16,10 +17,9 @@ data class Answers(
     val correctAnswer: String
 )
 
+@Singleton
 class FileRepository @Inject constructor() {
 
-    //constructor(index: Int) : this(0) {}
-    //constructor(index: Int) : this(this.index)
     var index: Int = 0
     var correctAnswers = 0
     var incorrectAnswers = 0
@@ -27,44 +27,44 @@ class FileRepository @Inject constructor() {
     private val json = """
         [
             {
-                "question": "Вопрос1",
-                "answers": [{"answer1": "lolo", "answer2": "cringe", "answer3": "vkvkvk", "correctAnswer": "cringe"}]
+                "question": "ЗАМЕНИТЬ_ВОПРОС_1",
+                "answers": [{"answer1": "ПРАВИЛЬНЫЙ_ОТВЕТ", "answer2": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer3": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "correctAnswer": "ПРАВИЛЬНЫЙ_ОТВЕТ"}]
             },
             {
-                "question": "Вопрос2",
-                "answers": [{"answer1": "lolo", "answer2": "cringe", "answer3": "vkvkvk", "correctAnswer": "cringe"}]
+                "question": "ЗАМЕНИТЬ_ВОПРОС_2",
+                "answers": [{"answer1": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer2": "ПРАВИЛЬНЫЙ_ОТВЕТ", "answer3": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "correctAnswer": "ПРАВИЛЬНЫЙ_ОТВЕТ"}]
             },
             {
-                "question": "Вопрос3",
-                "answers": [{"answer1": "lolo", "answer2": "cringe", "answer3": "vkvkvk", "correctAnswer": "cringe"}]
+                "question": "ЗАМЕНИТЬ_ВОПРОС_3",
+                "answers": [{"answer1": "ПРАВИЛЬНЫЙ_ОТВЕТ", "answer2": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer3": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "correctAnswer": "ПРАВИЛЬНЫЙ_ОТВЕТ"}]
             },
             {
-                "question": "Вопрос4",
-                "answers": [{"answer1": "lolo", "answer2": "cringe", "answer3": "vkvkvk", "correctAnswer": "cringe"}]
+                "question": "ЗАМЕНИТЬ_ВОПРОС_4",
+                "answers": [{"answer1": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer2": "ПРАВИЛЬНЫЙ_ОТВЕТ", "answer3": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "correctAnswer": "ПРАВИЛЬНЫЙ_ОТВЕТ"}]
             },
             {
-                "question": "Вопрос5",
-                "answers": [{"answer1": "lolo", "answer2": "cringe", "answer3": "vkvkvk", "correctAnswer": "cringe"}]
+                "question": "ЗАМЕНИТЬ_ВОПРОС_5",
+                "answers": [{"answer1": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer2": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer3": "ПРАВИЛЬНЫЙ_ОТВЕТ", "correctAnswer": "ПРАВИЛЬНЫЙ_ОТВЕТ"}]
             },
             {
-                "question": "Вопрос6",
-                "answers": [{"answer1": "lolo", "answer2": "cringe", "answer3": "vkvkvk", "correctAnswer": "cringe"}]
+                "question": "ЗАМЕНИТЬ_ВОПРОС_6",
+                "answers": [{"answer1": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer2": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer3": "ПРАВИЛЬНЫЙ_ОТВЕТ", "correctAnswer": "ПРАВИЛЬНЫЙ_ОТВЕТ"}]
             },
             {
-                "question": "Вопрос7",
-                "answers": [{"answer1": "lolo", "answer2": "cringe", "answer3": "vkvkvk", "correctAnswer": "cringe"}]
+                "question": "ЗАМЕНИТЬ_ВОПРОС_7",
+                "answers": [{"answer1": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer2": "ПРАВИЛЬНЫЙ_ОТВЕТ", "answer3": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "correctAnswer": "ПРАВИЛЬНЫЙ_ОТВЕТ"}]
             },
             {
-                "question": "Вопрос8",
-                "answers": [{"answer1": "lolo", "answer2": "cringe", "answer3": "vkvkvk", "correctAnswer": "cringe"}]
+                "question": "ЗАМЕНИТЬ_ВОПРОС_8",
+                "answers": [{"answer1": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer2": "ПРАВИЛЬНЫЙ_ОТВЕТ", "answer3": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "correctAnswer": "ПРАВИЛЬНЫЙ_ОТВЕТ"}]
             },
             {
-                "question": "Вопрос9",
-                "answers": [{"answer1": "lolo", "answer2": "cringe", "answer3": "vkvkvk", "correctAnswer": "cringe"}]
+                "question": "ЗАМЕНИТЬ_ВОПРОС_9",
+                "answers": [{"answer1": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer2": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer3": "ПРАВИЛЬНЫЙ_ОТВЕТ", "correctAnswer": "ПРАВИЛЬНЫЙ_ОТВЕТ"}]
             },
             {
-                "question": "Вопрос10",
-                "answers": [{"answer1": "lolo", "answer2": "cringe", "answer3": "vkvkvk", "correctAnswer": "cringe"}]
+                "question": "ЗАМЕНИТЬ_ВОПРОС_10",
+                "answers": [{"answer1": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer2": "НЕПРАВИЛЬНЫЙ_ОТВЕТ", "answer3": "ПРАВИЛЬНЫЙ_ОТВЕТ", "correctAnswer": "ПРАВИЛЬНЫЙ_ОТВЕТ"}]
             },
         ]
     """

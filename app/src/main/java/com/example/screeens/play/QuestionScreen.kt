@@ -1,9 +1,7 @@
 package com.example
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
@@ -30,18 +28,13 @@ fun QuestionScreen(
                 QuestionViewState.CorrectLight -> CorrectLightView()
                 QuestionViewState.IncorrectLight -> IncorrectLightView()
                 is QuestionViewState.Display -> DisplayView(
-                    viewState = state,
+                    navController = navController,
+                    state = state,
                     correctAnswerClicked = { questionViewModel.obtainEvent(QuestionEvent.CorrectAnswerClicked) },
                     incorrectAnswerClicked = { questionViewModel.obtainEvent(QuestionEvent.IncorrectAnswerClicked) },
-                    nextQuestion = { questionViewModel.obtainEvent(event = QuestionEvent.NextQuestionClicked) }
+                    nextQuestion = { questionViewModel.obtainEvent(event = QuestionEvent.NextQuestionClicked) },
                 )
             }
-
-            /*Button(onClick = {
-                questionViewModel.obtainEvent(event = QuestionEvent.NextQuestionClicked)
-            }) {
-                Text(text = "Next")
-            }*/
         }
     }
 

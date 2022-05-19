@@ -5,6 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.screeens.finish.FinishViewModel
 import com.example.screeens.navigation.NavigationTree
 import com.example.screeens.play.QuestionViewModel
 import com.example.screeens.start.StartScreen
@@ -20,6 +21,9 @@ fun ApplicationScreen() {
             val questionViewModel = hiltViewModel<QuestionViewModel>()
             QuestionScreen(navController, questionViewModel)
         }
-        composable(NavigationTree.Finish.name) { FinishScreen() }
+        composable(NavigationTree.Finish.name) {
+            val finishViewModel = hiltViewModel<FinishViewModel>()
+            FinishScreen(navController, finishViewModel)
+        }
     }
 }

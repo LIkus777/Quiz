@@ -11,7 +11,9 @@ sealed class QuestionViewState {
     object CorrectLight: QuestionViewState()
     object IncorrectLight: QuestionViewState()
     data class Display(
-        val question: String,
-        val answerList: List<Answers>,
+        val question: String = "",
+        val answerList: List<Answers> = listOf(),
+        val isLastQuestion: Boolean = false,
+        val time: Long = 0
     ): QuestionViewState()
 }
